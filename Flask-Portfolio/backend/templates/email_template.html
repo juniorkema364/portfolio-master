@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: #4CAF50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .footer {
+            background: #f4f4f9;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Nouveau Message de Contact</h1>
+        </div>
+        <div class="content">
+            <h2>Détails du Message :</h2>
+            <p><strong>Nom :</strong> {{ name }}</p>
+            <p><strong>Email :</strong> {{ email }}</p>
+            <p><strong>Message :</strong></p>
+            <p>{{ message }}</p>
+        </div>
+        <div class="footer">
+            <p>© 2024 Votre LG Company. Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+</html>
