@@ -1,9 +1,12 @@
-version : 0.1 
+version: "1.0"  # Version du fichier YAML
 
-endpoints :
-  - name : "Lg company"
-    port : 5000
-    typee : REST 
-    networkVisibility : Public 
-    context: / 
-    
+endpoints:
+  - name: "send-mail"  # Nom du point de terminaison
+    method: "POST"     # Méthode HTTP (POST ici pour envoyer un e-mail)
+    path: "/api/send-mail"  # Chemin pour accéder à ce point de terminaison
+    description: "Envoi un message via l'API"  # Description du point de terminaison
+    handler: "send_email"  # Le nom de la fonction qui gère ce point de terminaison
+    security: # Définir la sécurité si nécessaire
+      apiKey:
+        header: "X-API-Key"  # Optionnel : Authentification par clé API
+ 
