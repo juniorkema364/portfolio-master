@@ -1,0 +1,9 @@
+version : 0.1 
+
+endpoints :
+  - name : "Lg company"
+    port : 5000
+    typee : REST 
+    networkVisibility : Public 
+    context: / 
+    
