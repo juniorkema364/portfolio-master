@@ -1,12 +1,15 @@
-version: "1.0"  # Version du fichier YAML
-
-endpoints:
-  - name: "send-mail"  # Nom du point de terminaison
-    method: "POST"     # Méthode HTTP (POST ici pour envoyer un e-mail)
-    path: "/api/send-mail"  # Chemin pour accéder à ce point de terminaison
-    description: "Envoi un message via l'API"  # Description du point de terminaison
-    handler: "send_email"  # Le nom de la fonction qui gère ce point de terminaison
-    security: # Définir la sécurité si nécessaire
-      apiKey:
-        header: "X-API-Key"  # Optionnel : Authentification par clé API
- 
+apiVersion: choreo.dev/v1alpha1
+kind: Service
+metadata:
+  name: flask-backend-service
+spec:
+  endpoints:
+    - path: /api/send-mail
+      method: POST
+      backend: flask-backend
+      type: http
+      secured: false
+      request:
+        contentType: application/json
+      response:
+        contentType: application/json
