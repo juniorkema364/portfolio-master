@@ -41,17 +41,17 @@ def send_mail():
         
             html_content = render_template('email_template.html', name=name, email=email, message=message)
 
-            with mail.connect() as conn: 
-                msg = Message(
-                subject=f"Message de {name} via le formulaire de contact",
-                recipients= [os.getenv('MAIL_USER')],  # 
-                body=f"Nom : {name}\nEmail : {email}\n\nMessage :\n{message}" , 
-                html = html_content
+        
+            msg = Message(
+            subject=f"Message de {name} via le formulaire de contact",
+            recipients= [os.getenv('MAIL_USER')],  # 
+            body=f"Nom : {name}\nEmail : {email}\n\nMessage :\n{message}" , 
+            html = html_content
             )
-                conn.send(msg)
-                print('Le message a bien été envoyé ...')
-                sleep(2)
-                return   jsonify({"message": "Email envoyé avec succès"}), 200
+            mail.send(msg)
+            print('Le message a bien été envoyé ...')
+            sleep(2)
+            return   jsonify({"message": "Email envoyé avec succès"}), 200
            
         except Exception as e:
             print('Ereur lors de envoi ... : ' ,  str(e))
