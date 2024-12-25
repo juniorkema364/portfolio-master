@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Contact Form Email API
+  description: API for sending emails using Flask-Mail.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+paths:
+  /api/send-mail:
+    post:
+      summary: Send an email via the contact form
+      description: Receives JSON data from the frontend and sends an email using Flask-Mail.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the sender
+                  example: John Doe
+                email:
+                  type: string
+                  format: email
+                  description: Email address of the sender
+                  example: johndoe@example.com
+                message:
+                  type: string
+                  description: Message content
+                  example: Hello, I have a question about your service.
+              required:
+                - name
+                - email
+                - message
+      responses:
+        "200":
+          description: Email sent successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Email envoyé avec succès
+        "400":
+          description: Bad request, missing required fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Tous les champs sont requis
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Une erreur est survenue : [détails de l'erreur]
