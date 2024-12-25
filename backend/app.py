@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_mail import Mail, Message
 from flask_cors import CORS
 import os
+from time import sleep
 
 app = Flask(__name__)
 CORS(app)  # Permettre les requêtes depuis le front-end
@@ -36,7 +37,7 @@ def send_mail():
                 
             name = data.get('name')
             email = data.get('email')
-            message = data.get('message')
+            message = data.get('message') 
         
             html_content = render_template('email_template.html', name=name, email=email, message=message)
             msg = Message(
@@ -47,6 +48,7 @@ def send_mail():
             )
             mail.send(msg)
             print('Le message a bien été envoyé ...')
+            sleep(4)
             return   jsonify({"message": "Email envoyé avec succès"}), 200
            
         except Exception as e:
