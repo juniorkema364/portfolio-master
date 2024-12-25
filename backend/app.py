@@ -9,7 +9,7 @@ CORS(app)  # Permettre les requêtes depuis le front-end
 
 # Configuration Flask-Mail
 app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
-app.config['MAIL_PORT'] = 587
+app.config['MAIL_PORT'] = os.getenv('MAIL_PORT')
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
@@ -22,6 +22,8 @@ mail = Mail(app)
 
 @app.route('/api/send-mail', methods=['POST'])
 def send_mail():
+    print("os port : ", os.getenv('FLASK_PORT'))
+    print('make user : ' , os.getenv('MAIL_USER'))
     if request.method == "POST" : 
         
         try:
@@ -40,23 +42,25 @@ def send_mail():
             message = data.get('message') 
         
             html_content = render_template('email_template.html', name=name, email=email, message=message)
-
-        
-            msg = Message(
-            subject=f"Message de {name} via le formulaire de contact",
-            recipients= [os.getenv('MAIL_USER')],  # 
-            body=f"Nom : {name}\nEmail : {email}\n\nMessage :\n{message}" , 
-            html = html_content
-            )
-            mail.send(msg)
-            print('Le message a bien été envoyé ...')
-            sleep(2)
-            return   jsonify({"message": "Email envoyé avec succès"}), 200
+            
+            with app.app_context():
+                msg = Message(
+                subject=f"Message de {name} via le formulaire de contact",
+                recipients= [os.getenv('MAIL_USER')],  # 
+                body=f"Nom : {name}\nEmail : {email}\n\nMessage :\n{message}" , 
+                html = html_content
+                )
+                mail.send(msg)
+                print('Le message a bien été envoyé ...')
+                sleep(2)
+                return   jsonify({"message": "Email envoyé avec succès"}), 200
            
         except Exception as e:
             print('Ereur lors de envoi ... : ' ,  str(e))
             return jsonify({"error": f"Une erreur est survenue : {str(e)}"}), 500
+      
  
 
 if __name__ == '__main__':
-    app.run("0.0.0.0" , debug=False , port = 5000)
+    port = int(os.getenv("FLASK_RUN_PORT", 5000))  
+    app.run(host="0.0.0.0", port=port)
