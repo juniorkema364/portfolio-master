@@ -40,7 +40,7 @@ def send_mail():
             message = data.get('message') 
         
             html_content = render_template('email_template.html', name=name, email=email, message=message)
-            
+
             with mail.connect() as conn: 
                 msg = Message(
                 subject=f"Message de {name} via le formulaire de contact",
@@ -59,4 +59,4 @@ def send_mail():
  
 
 if __name__ == '__main__':
-    app.run(debug=True , use_reloader = True)
+    app.run("0.0.0.0" , debug=False , port = 5000)

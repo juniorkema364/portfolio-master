@@ -54,7 +54,7 @@ form.addEventListener('submit', async (event) => {
     };
 
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/send-mail', {
+        const response = await fetch('https://portfolio-master-kuci.onrender.com/api/send-mail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -85,10 +85,12 @@ form.addEventListener('submit', async (event) => {
               text: result.error , 
               footer: '<a href="#">Why do I have this issue?</a>'
             });
+            
         }
     } catch (error) {
         responseMessage.textContent = "Erreur lors de l'envoi du message.";
         responseMessage.style.color = 'red';
+        
     }
 });
 
